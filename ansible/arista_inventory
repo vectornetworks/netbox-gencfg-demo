@@ -1,0 +1,16 @@
+[fabric:children]
+spines
+leafs
+
+[fabric:vars]
+ansible_connection=network_cli
+ansible_user=admin
+ansible_password='arista123'
+ansible_network_os=eos
+
+[spines]
+spine-01 ansible_host=localhost ansible_port=2002 
+
+[leafs]
+leaf-01 ansible_host=localhost ansible_port=2000 
+leaf-02 ansible_host=localhost ansible_port=2001 

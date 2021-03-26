@@ -1,0 +1,4 @@
+.vagrant/
+cEOS-lab.tar
+.DS_Store
+*.log

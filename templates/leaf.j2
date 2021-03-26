@@ -1,0 +1,106 @@
+hostname {{ device.name }}
+aaa authorization exec default local
+
+spanning-tree mode mstp
+spanning-tree priority 4096
+
+{% for vrf in vrfs %}
+{% if vrf != 'default' %}
+vrf instance {{ vrf }}
+ip routing vrf {{ vrf }}
+{% else %}
+ip routing
+{% endif %}
+
+{% endfor %}
+
+router multicast 
+{% for vrf in vrfs %}
+{% if vrf != 'default' %}
+   vrf {{ vrf }}
+     ipv4
+        routing
+{% endif %}
+{% endfor %}
+
+ip as-path access-list LOCAL permit ^$ any
+
+{% for vrf in vrfs %}
+{% if vrf == 'default' %}
+route-map SPINE-OUT-VRF-DEFAULT permit 10
+   match as-path LOCAL
+   set community {{ device.custom_fields.bgp_asn }}:1000
+route-map SPINE-OUT-VRF-DEFAULT permit 1000
+
+route-map SPINE-IN-VRF-DEFAULT permit 1000
+{% endif %}
+
+{% if vrf == 'dev' %}
+route-map SPINE-OUT-VRF-DEV permit 10
+   match as-path LOCAL
+   set community {{ device.custom_fields.bgp_asn }}:2000
+route-map SPINE-OUT-VRF-DEV permit 1000
+
+route-map SPINE-IN-VRF-DEV permit 1000
+{% endif %}
+
+{% if vrf == 'dmz' %}
+route-map SPINE-OUT-VRF-DMZ permit 10
+   match as-path LOCAL
+   set community {{ device.custom_fields.bgp_asn }}:4000
+route-map SPINE-OUT-VRF-DMZ permit 1000
+
+route-map SPINE-IN-VRF-DMZ permit 1000
+{% endif %}
+
+{% endfor %}
+
+router bgp {{ device.custom_fields.bgp_asn }}
+   maximum-paths 6 ecmp 6
+{% for vrf in vrfs %}
+   neighbor SPINES-VRF-{{ vrf|upper }} remote-as 65000
+   neighbor SPINES-VRF-{{ vrf|upper }} peer group
+   neighbor SPINES-VRF-{{ vrf|upper }} send-community
+   neighbor SPINES-VRF-{{ vrf|upper }} maximum-routes 12000
+   neighbor SPINES-VRF-{{ vrf|upper }} bfd
+   neighbor SPINES-VRF-{{ vrf|upper }} route-map SPINE-OUT-VRF-{{ vrf|upper }} out
+   neighbor SPINES-VRF-{{ vrf|upper }} route-map SPINE-IN-VRF-{{ vrf|upper }} in
+   vrf {{ vrf }}
+       router-id {{ router_ids[vrf] }}
+{% for neighbor in spine_neighbors[vrf] %}
+       neighbor {{ neighbor }} peer group SPINES-VRF-{{ vrf|upper }}
+{% endfor %}
+{% for net in bgp_networks[vrf] %}
+       network {{ net }}
+{% endfor %}
+
+{% endfor %}
+
+{% for intf in intfs %}
+interface {{ intf.name }}
+   no shutdown
+{% if intf.base_routed_int %}
+   no switchport
+   mtu 9214
+{% endif %}
+{% if intf.fabric_transit %}
+   pim ipv4 sparse-mode
+{% endif %}
+{% if intf.description %}
+   description {{ intf.description }}
+{% endif %}
+{% if intf.dot1q_encap %}
+   encapsulation dot1q vlan {{ intf.dot1q_encap }}
+{% endif %}
+
+{% endfor %}
+
+{% for ip in ip_addresses %}
+interface {{ ip.interface_name }}
+   vrf {{ ip.vrf }}
+   ip address {{ ip.address }}
+
+{% endfor %}
+
+interface Loopback0
+  description Ansible bug workaround

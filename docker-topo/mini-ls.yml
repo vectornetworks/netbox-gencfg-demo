@@ -1,0 +1,13 @@
+VERSION: 2
+PREFIX: mini-ls
+CONF_DIR: ./config_base
+CEOS_IMAGE: ceos:latest
+PUBLISH_BASE:
+  22/tcp: 2000
+driver: veth
+
+links:
+  - endpoints: ["spine-01:eth0", "leaf-01:eth0", "leaf-02:eth0"]
+    driver: bridge
+  - endpoints: ["spine-01:eth1", "leaf-01:eth1"]
+  - endpoints: ["spine-01:eth2", "leaf-02:eth1"]

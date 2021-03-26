@@ -1,0 +1,14 @@
+- hosts: all
+  name: Gather facts
+  gather_facts: false
+  become: true
+  vars:
+  tasks:
+    - name: Gather hardware info
+      register: hardware_info
+      eos_facts:
+        gather_subset:
+          - hardware
+    - name: Output Version
+      debug:
+        var: hardware_info.ansible_facts.ansible_net_version

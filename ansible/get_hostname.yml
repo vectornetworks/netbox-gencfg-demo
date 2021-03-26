@@ -1,0 +1,14 @@
+- hosts: all
+  name: Gather facts
+  gather_facts: false
+  become: true
+  vars:
+  tasks:
+    - name: Gather hardware info
+      register: switch_info
+      eos_facts:
+        gather_subset:
+          - all
+    - name: Output hostname
+      debug:
+        var: switch_info.ansible_facts.ansible_net_hostname

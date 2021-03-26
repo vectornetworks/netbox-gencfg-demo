@@ -1,0 +1,8 @@
+hostname leaf-02
+aaa authentication login default local
+aaa authorization exec default local
+
+username admin privilege 15 secret arista123
+
+management api http-commands
+   no shutdown

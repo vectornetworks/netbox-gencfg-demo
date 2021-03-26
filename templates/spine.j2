@@ -1,0 +1,103 @@
+hostname {{ device.name }}
+aaa authorization exec default local
+
+management console
+   idle-timeout 10
+
+{% for vrf in vrfs %}
+{% if vrf != 'default' %}
+vrf instance {{ vrf }}
+ip routing vrf {{ vrf }}
+{% else %}
+ip routing
+{% endif %}
+
+{% endfor %}
+
+router multicast 
+{% for vrf in vrfs %}
+{% if vrf != 'default' %}
+   vrf {{ vrf }}
+     ipv4
+        routing
+{% endif %}
+{% endfor %}
+
+peer-filter LEAF-ASN-RANGE
+   10 match as-range 65021-65099 result accept
+
+ip as-path access-list LOCAL permit ^$ any
+
+route-map LEAF-OUT-VRF-DEFAULT permit 10
+   match as-path LOCAL
+   set community {{ device.custom_fields.bgp_asn }}:1000
+route-map LEAF-OUT-VRF-DEFAULT permit 1000
+
+route-map LEAF-IN-VRF-DEFAULT permit 1000
+
+route-map LEAF-OUT-VRF-DEV permit 10
+   match as-path LOCAL
+   set community {{ device.custom_fields.bgp_asn }}:2000
+route-map LEAF-OUT-VRF-DEV permit 1000
+
+route-map LEAF-IN-VRF-DEV permit 1000
+
+route-map LEAF-OUT-VRF-DMZ permit 10
+   match as-path LOCAL
+   set community {{ device.custom_fields.bgp_asn }}:4000
+route-map LEAF-OUT-VRF-DMZ permit 1000
+
+route-map LEAF-IN-VRF-DMZ permit 1000
+
+router bgp {{ device.custom_fields.bgp_asn }}
+   maximum-paths 6 ecmp 6
+{% for vrf in vrfs %}
+   neighbor LEAFS-VRF-{{ vrf|upper }} peer group
+   neighbor LEAFS-VRF-{{ vrf|upper }} send-community
+   neighbor LEAFS-VRF-{{ vrf|upper }} maximum-routes 12000
+   neighbor LEAFS-VRF-{{ vrf|upper }} bfd
+   neighbor LEAFS-VRF-{{ vrf|upper }} route-map LEAF-OUT-VRF-{{ vrf|upper }} out
+   neighbor LEAFS-VRF-{{ vrf|upper }} route-map LEAF-IN-VRF-{{ vrf|upper }} in
+   vrf {{ vrf }}
+      router-id {{ router_ids[vrf] }}
+      {% if vrf == 'default' -%}
+      bgp listen range 10.128.14.0/24 peer-group LEAFS-VRF-{{ vrf|upper }} peer-filter LEAF-ASN-RANGE
+      {% elif vrf == 'dev' -%}
+      bgp listen range 10.128.30.0/24 peer-group LEAFS-VRF-{{ vrf|upper }} peer-filter LEAF-ASN-RANGE
+      {% elif vrf == 'dmz' -%}
+      bgp listen range 10.128.46.0/24 peer-group LEAFS-VRF-{{ vrf|upper }} peer-filter LEAF-ASN-RANGE
+      {% endif %}
+{% for net in bgp_networks[vrf] -%}
+       network {{ net }}
+{% endfor %}
+
+{% endfor %}
+
+{% for intf in intfs %}
+interface {{ intf.name }}
+   no shutdown
+{% if intf.base_routed_int %}
+   no switchport
+   mtu 9214
+{% endif %}
+{% if intf.fabric_transit %}
+   pim ipv4 sparse-mode
+{% endif %}
+{% if intf.description %}
+   description {{ intf.description }}
+{% endif %}
+{% if intf.dot1q_encap %}
+   encapsulation dot1q vlan {{ intf.dot1q_encap }}
+{% endif %}
+
+{% endfor %}
+
+{% for ip in ip_addresses %}
+interface {{ ip.interface_name }}
+   vrf {{ ip.vrf }}
+   ip address {{ ip.address }}
+
+{% endfor %}
+
+interface Loopback0
+  description Ansible bug workaround

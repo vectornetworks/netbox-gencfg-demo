@@ -1,0 +1,1 @@
+s/image: postgres:.*-alpine/build: .\/postgres/
