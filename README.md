@@ -35,7 +35,7 @@ Bring up the VM using Vagrant:
 This will bring the demo VM online and install Docker, Netbox, and Ansbile; and load the demo data into Netbox.  It will also add the cEOS image into Docker if it exists.
 
 ## Connect to the VM and Check the IP address
-First, while still in the Vagrant base directory, SSH to the VM:
+While still in the Vagrant base directory, SSH to the VM:
 
     vagrant ssh
 
