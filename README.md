@@ -19,7 +19,7 @@ The primary requirement to run the demo is **[Vagrant](https://www.vagrantup.com
 
 ## Clone the repo
 
-    git clone https://github.com/bgianpetro/netbox-gencfg-demo.git
+    git clone https://github.com/vectornetworks/netbox-gencfg-demo.git
     cd netbox-gencfg-demo
 
 ## Download and rename the cEOS lab software
