@@ -1,6 +1,6 @@
 # Overview
 
-This project creates a demo environment for a workflow that generates network device configurations using data stored in Netbox and pushes those configurations using Ansible.
+This project creates a demo environment for a workflow that generates network device configurations using data stored in Netbox and pushes those configurations using Ansible.  See [this post](https://www.vectornetworksllc.com/post/generating-network-device-configurations-from-netbox) for more background on the motivations for creating this demo.
 
 ![Workflow Overview](images/flow.png)
 
@@ -76,6 +76,8 @@ In order to easily access the CLI of the cEOS containers, add the following alia
 At this point test logging into the cEOS containers using the aliases, e.g.:
 
     leaf-01
+
+**Note:** It may take a couple of minutes for the containers to come online and load their base configuration.  If you get a generic hostname or a partial config when you login to the device, check back after a couple of minutes.
 
 Should log you into the CLI of leaf-01.  Feel free to enable up and poke around.  At this point the containers only have a base config that doesn't contain much beyond the hostname.
 

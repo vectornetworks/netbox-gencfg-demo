@@ -51,6 +51,7 @@ route-map LEAF-IN-VRF-DMZ permit 1000
 
 router bgp {{ device.custom_fields.bgp_asn }}
    maximum-paths 6 ecmp 6
+   bgp advertise-inactive
 {% for vrf in vrfs %}
    neighbor LEAFS-VRF-{{ vrf|upper }} peer group
    neighbor LEAFS-VRF-{{ vrf|upper }} send-community

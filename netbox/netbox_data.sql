@@ -5231,7 +5231,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$216000$9Lotrp0ePRna$rqtotaQc4190TntGkjSe4XsVKHkSoqEru6K0wA+lMaw=	2021-03-17 20:59:21.922931+00	t	admin			admin@example.com	t	t	2021-03-01 20:54:30.914361+00
+1	pbkdf2_sha256$216000$9Lotrp0ePRna$rqtotaQc4190TntGkjSe4XsVKHkSoqEru6K0wA+lMaw=	2021-03-30 16:29:50.97039+00	t	admin			admin@example.com	t	t	2021-03-01 20:54:30.914361+00
 \.
 
 
@@ -5470,6 +5470,7 @@ COPY public.dcim_interface (id, name, type, mgmt_only, description, device_id, m
 299	Ethernet1.100	virtual	f		6	\N	\N	t	\N		\N	\N	9999999999999999Ethernet000001......000100		\N	\N	\N
 300	Ethernet1.200	virtual	f		6	\N	\N	t	\N		\N	\N	9999999999999999Ethernet000001......000200		\N	\N	\N
 301	Ethernet1.400	virtual	f		6	\N	\N	t	\N		\N	\N	9999999999999999Ethernet000001......000400		\N	\N	\N
+289	Ethernet43	10gbase-x-sfpp	f		6	\N	\N	f	\N		\N	\N	9999999999999999Ethernet000043............		\N	\N	\N
 308	Loopback1	virtual	f	Loopback and router-id - default VRF	5	\N	\N	t	\N		\N	\N	9999999999999999Loopback000001............		\N	\N	\N
 309	Loopback1	virtual	f	Loopback and router-id - default VRF	6	\N	\N	t	\N		\N	\N	9999999999999999Loopback000001............		\N	\N	\N
 310	Loopback1	virtual	f	Loopback and router-id - default VRF	4	\N	\N	t	\N		\N	\N	9999999999999999Loopback000001............		\N	\N	\N
@@ -5534,7 +5535,6 @@ COPY public.dcim_interface (id, name, type, mgmt_only, description, device_id, m
 286	Ethernet40	10gbase-x-sfpp	f		6	\N	\N	f	\N		\N	\N	9999999999999999Ethernet000040............		\N	\N	\N
 287	Ethernet41	10gbase-x-sfpp	f		6	\N	\N	f	\N		\N	\N	9999999999999999Ethernet000041............		\N	\N	\N
 288	Ethernet42	10gbase-x-sfpp	f		6	\N	\N	f	\N		\N	\N	9999999999999999Ethernet000042............		\N	\N	\N
-289	Ethernet43	10gbase-x-sfpp	f		6	\N	\N	f	\N		\N	\N	9999999999999999Ethernet000043............		\N	\N	\N
 290	Ethernet44	10gbase-x-sfpp	f		6	\N	\N	f	\N		\N	\N	9999999999999999Ethernet000044............		\N	\N	\N
 291	Ethernet45	10gbase-x-sfpp	f		6	\N	\N	f	\N		\N	\N	9999999999999999Ethernet000045............		\N	\N	\N
 292	Ethernet46	10gbase-x-sfpp	f		6	\N	\N	f	\N		\N	\N	9999999999999999Ethernet000046............		\N	\N	\N
@@ -6219,6 +6219,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 wo9e2ftb0qbn08hr3vsny4lqz8eow4cw	.eJxVjEEKwjAQAP-Ss5Rs06ypRz-gPwibzZZEMYUmBUH8uy140OvMMC_laW3Jr1UWn6M6KVCHXxaI71J2UaSF-dntSkrLTC3PpbuEm3C7yvLItW7g_O3_Jolq2g6DRIPSG3LWWZooGoZx0A4laI2MFlioj84ay6NEDWKPAIDI_YTGiXp_ADy1Oe8:1lGpYz:PcbqdXlm5EStJbsv6kkgbomhs4MK5DwLipoWtUj7Pvc	2021-03-15 20:54:45.705352+00
 4jlwr4hgzk9pajyxrpfgnm10gfc8p2ur	.eJxVjEEKwjAQAP-Ss5Rs06ypRz-gPwibzZZEMYUmBUH8uy140OvMMC_laW3Jr1UWn6M6KVCHXxaI71J2UaSF-dntSkrLTC3PpbuEm3C7yvLItW7g_O3_Jolq2g6DRIPSG3LWWZooGoZx0A4laI2MFlioj84ay6NEDWKPAIDI_YTGiXp_ADy1Oe8:1lHSUc:ywe6Pj2mw-Qm7Kj41SlEWqhPFIuWBxXqgqaRoGcebPQ	2021-03-17 14:28:50.56564+00
 73l8gxo4ef5ufjki2je4goxkmqv5aqi1	.eJxVjEEKwjAQAP-Ss5Rs06ypRz-gPwibzZZEMYUmBUH8uy140OvMMC_laW3Jr1UWn6M6KVCHXxaI71J2UaSF-dntSkrLTC3PpbuEm3C7yvLItW7g_O3_Jolq2g6DRIPSG3LWWZooGoZx0A4laI2MFlioj84ay6NEDWKPAIDI_YTGiXp_ADy1Oe8:1lMdGD:mB9AFXjXeSAsAbkoFTROjn-k-tI06GQLroGmame84zs	2021-03-31 20:59:21.928493+00
+84uxihok1de57808zthvac1exgjhinsk	.eJxVjEEKwjAQAP-Ss5Rs06ypRz-gPwibzZZEMYUmBUH8uy140OvMMC_laW3Jr1UWn6M6KVCHXxaI71J2UaSF-dntSkrLTC3PpbuEm3C7yvLItW7g_O3_Jolq2g6DRIPSG3LWWZooGoZx0A4laI2MFlioj84ay6NEDWKPAIDI_YTGiXp_ADy1Oe8:1lRHFX:QF1iOBy4Kypz5YsCIEMAiddJgosI7XzlmE1BO-iGZ8U	2021-04-13 16:29:51.107256+00
 \.
 
 
@@ -7004,6 +7005,18 @@ COPY public.extras_objectchange (id, "time", user_name, request_id, action, chan
 645	2021-03-25 15:48:13.014576+00	admin	c1e3403b-6628-4a01-9af4-b6742d25777a	update	7	307	10.128.46.2/31	{"vrf": 1, "role": "", "tags": ["bgp-originate"], "status": "active", "tenant": null, "address": "10.128.46.2/31", "created": "2021-03-23", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-25T15:48:12.999Z", "custom_fields": {}, "assigned_object_id": 307, "assigned_object_type": 5}	50	5	1
 646	2021-03-25 15:48:13.033736+00	admin	c1e3403b-6628-4a01-9af4-b6742d25777a	update	13	301	10.128.46.3/31	{"vrf": 1, "role": "", "tags": [], "status": "active", "tenant": null, "address": "10.128.46.3/31", "created": "2021-03-23", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-25T15:48:13.028Z", "custom_fields": {}, "assigned_object_id": 301, "assigned_object_type": 5}	50	5	1
 647	2021-03-25 15:48:13.043065+00	admin	c1e3403b-6628-4a01-9af4-b6742d25777a	update	13	301	10.128.46.3/31	{"vrf": 1, "role": "", "tags": ["bgp-originate"], "status": "active", "tenant": null, "address": "10.128.46.3/31", "created": "2021-03-23", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-25T15:48:13.028Z", "custom_fields": {}, "assigned_object_id": 301, "assigned_object_type": 5}	50	5	1
+648	2021-03-30 19:59:28.382835+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	1	302	10.128.14.0/31	{"vrf": 3, "role": "", "tags": ["bgp-originate"], "status": "active", "tenant": null, "address": "10.128.14.0/31", "created": "2021-03-05", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.361Z", "custom_fields": {}, "assigned_object_id": 302, "assigned_object_type": 5}	50	5	1
+649	2021-03-30 19:59:28.393745+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	1	302	10.128.14.0/31	{"vrf": 3, "role": "", "tags": [], "status": "active", "tenant": null, "address": "10.128.14.0/31", "created": "2021-03-05", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.361Z", "custom_fields": {}, "assigned_object_id": 302, "assigned_object_type": 5}	50	5	1
+650	2021-03-30 19:59:28.41341+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	5	305	10.128.14.2/31	{"vrf": 3, "role": "", "tags": ["bgp-originate"], "status": "active", "tenant": null, "address": "10.128.14.2/31", "created": "2021-03-23", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.407Z", "custom_fields": {}, "assigned_object_id": 305, "assigned_object_type": 5}	50	5	1
+651	2021-03-30 19:59:28.422753+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	5	305	10.128.14.2/31	{"vrf": 3, "role": "", "tags": [], "status": "active", "tenant": null, "address": "10.128.14.2/31", "created": "2021-03-23", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.407Z", "custom_fields": {}, "assigned_object_id": 305, "assigned_object_type": 5}	50	5	1
+652	2021-03-30 19:59:28.441766+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	2	303	10.128.30.0/31	{"vrf": 2, "role": "", "tags": ["bgp-originate"], "status": "active", "tenant": null, "address": "10.128.30.0/31", "created": "2021-03-05", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.436Z", "custom_fields": {}, "assigned_object_id": 303, "assigned_object_type": 5}	50	5	1
+653	2021-03-30 19:59:28.450691+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	2	303	10.128.30.0/31	{"vrf": 2, "role": "", "tags": [], "status": "active", "tenant": null, "address": "10.128.30.0/31", "created": "2021-03-05", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.436Z", "custom_fields": {}, "assigned_object_id": 303, "assigned_object_type": 5}	50	5	1
+654	2021-03-30 19:59:28.470233+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	6	306	10.128.30.2/31	{"vrf": 2, "role": "", "tags": ["bgp-originate"], "status": "active", "tenant": null, "address": "10.128.30.2/31", "created": "2021-03-23", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.465Z", "custom_fields": {}, "assigned_object_id": 306, "assigned_object_type": 5}	50	5	1
+655	2021-03-30 19:59:28.479005+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	6	306	10.128.30.2/31	{"vrf": 2, "role": "", "tags": [], "status": "active", "tenant": null, "address": "10.128.30.2/31", "created": "2021-03-23", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.465Z", "custom_fields": {}, "assigned_object_id": 306, "assigned_object_type": 5}	50	5	1
+656	2021-03-30 19:59:28.498182+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	4	304	10.128.46.0/31	{"vrf": 1, "role": "", "tags": ["bgp-originate"], "status": "active", "tenant": null, "address": "10.128.46.0/31", "created": "2021-03-05", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.493Z", "custom_fields": {}, "assigned_object_id": 304, "assigned_object_type": 5}	50	5	1
+657	2021-03-30 19:59:28.506783+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	4	304	10.128.46.0/31	{"vrf": 1, "role": "", "tags": [], "status": "active", "tenant": null, "address": "10.128.46.0/31", "created": "2021-03-05", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.493Z", "custom_fields": {}, "assigned_object_id": 304, "assigned_object_type": 5}	50	5	1
+658	2021-03-30 19:59:28.524981+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	7	307	10.128.46.2/31	{"vrf": 1, "role": "", "tags": ["bgp-originate"], "status": "active", "tenant": null, "address": "10.128.46.2/31", "created": "2021-03-23", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.520Z", "custom_fields": {}, "assigned_object_id": 307, "assigned_object_type": 5}	50	5	1
+659	2021-03-30 19:59:28.534037+00	admin	a663a48a-dbbf-47a9-9828-4cbc0be07e7c	update	7	307	10.128.46.2/31	{"vrf": 1, "role": "", "tags": [], "status": "active", "tenant": null, "address": "10.128.46.2/31", "created": "2021-03-23", "dns_name": "", "nat_inside": null, "description": "", "last_updated": "2021-03-30T19:59:28.520Z", "custom_fields": {}, "assigned_object_id": 307, "assigned_object_type": 5}	50	5	1
 \.
 
 
@@ -7069,17 +7082,11 @@ COPY public.extras_taggeditem (id, object_id, content_type_id, tag_id) FROM stdi
 40	299	5	2
 41	300	5	2
 42	301	5	2
-43	1	50	6
 44	8	50	6
-45	5	50	6
 46	11	50	6
-47	2	50	6
 48	9	50	6
-49	6	50	6
 50	12	50	6
-51	4	50	6
 52	10	50	6
-53	7	50	6
 54	13	50	6
 \.
 
@@ -7122,18 +7129,18 @@ COPY public.ipam_ipaddress (id, created, last_updated, address, description, ass
 16	2021-03-24	2021-03-24 16:17:53.402054+00	10.128.47.1		316	\N	1	\N	active			5	{}
 19	2021-03-24	2021-03-24 16:17:53.432403+00	10.128.47.2		314	\N	1	\N	active			5	{}
 22	2021-03-24	2021-03-24 16:17:53.469931+00	10.128.47.3		315	\N	1	\N	active			5	{}
-1	2021-03-05	2021-03-25 15:48:12.63236+00	10.128.14.0/31		302	\N	3	\N	active			5	{}
 8	2021-03-23	2021-03-25 15:48:12.671422+00	10.128.14.1/31		296	\N	3	\N	active			5	{}
-5	2021-03-23	2021-03-25 15:48:12.696952+00	10.128.14.2/31		305	\N	3	\N	active			5	{}
 11	2021-03-23	2021-03-25 15:48:12.719838+00	10.128.14.3/31		299	\N	3	\N	active			5	{}
-2	2021-03-05	2021-03-25 15:48:12.745245+00	10.128.30.0/31		303	\N	2	\N	active			5	{}
 9	2021-03-23	2021-03-25 15:48:12.85637+00	10.128.30.1/31		297	\N	2	\N	active			5	{}
-6	2021-03-23	2021-03-25 15:48:12.883356+00	10.128.30.2/31		306	\N	2	\N	active			5	{}
 12	2021-03-23	2021-03-25 15:48:12.912452+00	10.128.30.3/31		300	\N	2	\N	active			5	{}
-4	2021-03-05	2021-03-25 15:48:12.941847+00	10.128.46.0/31		304	\N	1	\N	active			5	{}
 10	2021-03-23	2021-03-25 15:48:12.970988+00	10.128.46.1/31		298	\N	1	\N	active			5	{}
-7	2021-03-23	2021-03-25 15:48:12.99913+00	10.128.46.2/31		307	\N	1	\N	active			5	{}
 13	2021-03-23	2021-03-25 15:48:13.028932+00	10.128.46.3/31		301	\N	1	\N	active			5	{}
+1	2021-03-05	2021-03-30 19:59:28.361019+00	10.128.14.0/31		302	\N	3	\N	active			5	{}
+5	2021-03-23	2021-03-30 19:59:28.407735+00	10.128.14.2/31		305	\N	3	\N	active			5	{}
+2	2021-03-05	2021-03-30 19:59:28.436805+00	10.128.30.0/31		303	\N	2	\N	active			5	{}
+6	2021-03-23	2021-03-30 19:59:28.465119+00	10.128.30.2/31		306	\N	2	\N	active			5	{}
+4	2021-03-05	2021-03-30 19:59:28.493052+00	10.128.46.0/31		304	\N	1	\N	active			5	{}
+7	2021-03-23	2021-03-30 19:59:28.520045+00	10.128.46.2/31		307	\N	1	\N	active			5	{}
 \.
 
 
@@ -7354,7 +7361,7 @@ COPY public.users_token (id, created, expires, key, write_enabled, description, 
 --
 
 COPY public.users_userconfig (id, data, user_id) FROM stdin;
-1	{"tables": {"VRFTable": {"columns": ["name", "rd", "tenant", "description", "tags"]}, "DeviceInterfaceTable": {"columns": ["name", "label", "enabled", "type", "lag", "mtu", "mode", "description", "cable", "connection", "tags", "ip_addresses"]}}}	1
+1	{"tables": {"VRFTable": {"columns": ["name", "rd", "tenant", "description", "tags"]}, "DeviceInterfaceTable": {"columns": ["name", "label", "enabled", "type", "lag", "mtu", "mode", "description", "cable", "connection", "tags", "ip_addresses"]}, "IPAddressDetailTable": {"columns": ["address", "vrf", "tags", "assigned_object", "assigned_object_parent"]}}}	1
 \.
 
 
@@ -7851,7 +7858,7 @@ SELECT pg_catalog.setval('public.extras_jobresult_id_seq', 1, false);
 -- Name: extras_objectchange_id_seq; Type: SEQUENCE SET; Schema: public; Owner: netbox
 --
 
-SELECT pg_catalog.setval('public.extras_objectchange_id_seq', 647, true);
+SELECT pg_catalog.setval('public.extras_objectchange_id_seq', 659, true);
 
 
 --
