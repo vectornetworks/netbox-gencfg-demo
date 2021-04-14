@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
         # Install Ansible
         add-apt-repository ppa:ansible/ansible
         apt-get update
-        apt-get -y install ansible=2.9.19-1ppa~bionic
+        apt-get -y install ansible=2.9.20-1ppa~bionic
 
         # Install docker-topo
         python3 -m pip install git+https://github.com/networkop/docker-topo.git
