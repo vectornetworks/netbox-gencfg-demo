@@ -31,12 +31,13 @@ Vagrant.configure("2") do |config|
         mkdir /tmp/git && cd /tmp/git
 
         # Install netbox-docker and modify it so Postgres will import demo data
-        git clone -b release https://github.com/netbox-community/netbox-docker.git && cd netbox-docker
+        git clone -b 1.2.0 https://github.com/netbox-community/netbox-docker.git && cd netbox-docker
         cp /vagrant/netbox/docker-compose.override.yml .
         mkdir postgres
         cp /vagrant/netbox/Dockerfile-netbox-postgres postgres/Dockerfile
         cp /vagrant/netbox/netbox_data.sql postgres 
         sed -i -f /vagrant/netbox/patch_netbox_docker_postgres.sed docker-compose.yml
+        export VERSION=v2.11.10
         docker-compose pull
         docker-compose up -d
 
